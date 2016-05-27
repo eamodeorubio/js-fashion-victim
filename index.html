@@ -1,0 +1,1056 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description"
+          content="Slides of my talk about last trends in JS (circa 2016)">
+    <meta name="author" content="Enrique Amodeo">
+		<title>JS Fashion Victim</title>
+
+		<link rel="stylesheet" href="./reveal.js-3.3.0/css/reveal.css">
+		<link rel="stylesheet" href="./reveal.js-3.3.0/css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="./reveal.js-3.3.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? './reveal.js-3.3.0/css/print/pdf.css' : './reveal.js-3.3.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+    <style>
+        /* Aside */
+      .left {
+        float: left;
+      }
+
+      img.left {
+        margin: 0;
+        padding: 0;
+        width: 25%;
+      }
+
+      img.left + ul {
+        margin: 0;
+        width: 60%;
+      }
+
+      /* Figures with captions */
+      .reveal section figure {
+        position: relative;
+        margin: 0 auto;
+        padding: 0;
+        width: 600px;
+        height: 400px;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .reveal section figure > img {
+        width: 100%;
+        max-height: none;
+        border-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .reveal section figure > figcaption {
+        position: absolute;
+        bottom: 0.5em;
+        left: 0;
+        width: 100%;
+        border-style: none;
+        border-width: 0;
+        margin: 0;
+        padding: 0;
+        background-color: rgb(37, 33, 28);
+        background-color: rgba(37, 33, 28, 0.5);
+        font-size: 0.4em;
+        text-align: center;
+      }
+
+      .reveal section figure > figcaption {
+        line-height: 1.5em;
+        vertical-align: middle;
+      }
+
+      .reveal section figure > figcaption a {
+        line-height: 1.5em !important;
+      }
+
+      /* Cover */
+      .reveal section.cover footer {
+        line-height: 33px;
+        clear: both;
+      }
+
+      .reveal section.cover > footer {
+        position: absolute;
+        bottom: 0.5em;
+        left: 0;
+        border-style: none;
+        border-width: 0;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: rgb(37, 33, 28);
+        background-color: rgba(37, 33, 28, 0.5);
+        font-size: 0.4em;
+        text-align: center;
+      }
+
+      .reveal section.cover footer img {
+        float: left;
+        margin: 0 1em 0 0;
+        padding: 0;
+        cursor: pointer;
+        border-style: none;
+      }
+
+      .reveal section.cover footer a,
+      .reveal section.cover footer span {
+        margin: 0;
+        padding: 0;
+        vertical-align: baseline;
+        line-height: 33px;
+      }
+
+      .reveal section h1, .reveal section h2, .reveal section h3, .reveal section h4
+			.reveal section hgroup h1, .reveal section hgroup h2 {
+        text-transform: none;
+      }
+      /* Separata */
+      .reveal section.separata {
+        height: 95%;
+      }
+
+      .reveal section.separata hgroup {
+        margin-top: 0.5em;
+        background-color: rgba(100,100,100,0.6);
+      }
+
+      .reveal section.separata hgroup h1,
+      .reveal section.separata hgroup h2,
+      .reveal section.separata hgroup h3,
+      .reveal section.separata hgroup h4 {
+        color: #F0F1EB;
+        text-shadow: #111150 0px 0px 0.2em;
+        margin: 0;
+        padding: 0.1em 0;
+        line-height: 1em;
+      }
+
+      .reveal section.separata figure {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .reveal section.separata figure > img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        border-style: none;
+        border-width: 0;
+        margin: 0;
+        padding: 0;
+        max-height: 100%;
+        max-width: 100%;
+        z-index: -1;
+      }
+
+        /* Animation */
+      div.animation-container {
+        position: relative;
+        margin: 0 auto;
+        padding: 0;
+        width: 809px;
+        height: 399px;
+        background-color: transparent;
+        -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px 0px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px 0px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px 0px;
+        overflow: hidden;
+      }
+
+      .animation-container .frame,
+      .animation-container .frame > img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 0;
+        border-style: none;
+        padding: 0;
+        margin: 0;
+        min-width: 100%;
+        max-width: none;
+        max-height: none;
+        box-shadow: none
+      }
+
+      .animation-container .frame > img.loader {
+        position: absolute;
+        top: 140px;
+        left: 180px;
+        border: 0;
+        border-style: none;
+        padding: 0;
+        margin: 0;
+        width: 126px;
+        min-width: 126px;
+        box-shadow: none;
+      }
+
+      .snippet {
+        font-family: monospace !important;
+      }
+
+      .reveal table.matrix {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .reveal table.matrix th.pivot {
+        border-style: none;
+      }
+
+      .reveal table.matrix th, .reveal table.matrix td {
+        border-style: solid;
+        border-width: 1px;
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      .reveal table.matrix td li {
+        list-style: none;
+      }
+
+      .reveal pre {
+        width:100%;
+      }
+
+      .reveal .bad {
+        color: red;
+        font-style: italic;
+      }
+
+      .reveal .small {
+        font-size: 0.6em;
+      }
+
+      .reveal .highlight {
+        background-color: #606000; /*#222230;*/
+        font-style: italic;
+      }
+
+      .reveal section figure.marble {
+        width:100%;
+        margin: auto 0;
+      }
+      .reveal section figure.marble img {
+        margin: 0 auto;
+        vertical-align:middle;
+        display:inline-block;
+        height: 100%;
+        width:auto;
+      }
+
+      @font-face {
+          font-family: dead;
+          src: url(./dead_font_walking.otf);
+      }
+      .reveal section .sticker {
+        position: absolute;
+        top: 50%;
+        margin: 0 30%;
+        color: red;
+        font-size: 2.5em;
+        font-weight: bold;
+        opacity: 0.7;
+        filter: alpha(opacity=70);
+        -ms-transform: rotate(-40deg);
+        -webkit-transform: rotate(-40deg);
+        transform: rotate(-40deg);
+        font-family: dead;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section class="cover">
+          <h1 style="color: yellow;">JavaScript</h1>
+          <h1>FASHION VICTIM</h1>
+          <p>
+            <small>By <a
+                    href="http://de.linkedin.com/pub/enrique-amodeo-rubio/26/44a/833">Enrique
+              Amodeo</a> /
+              <a href="http://twitter.com/eamodeorubio">@eamodeorubio</a></small>
+          </p>
+          <footer>
+            <a rel="license"
+               href="http://creativecommons.org/licenses/by-nc-sa/2.0/">
+              <img alt="Creative Commons License"
+                   src="http://i.creativecommons.org/l/by-nc-sa/2.0/88x31.png"/>
+            </a>
+
+            <a rel="license" style="vertical-align: middle"
+               href="http://creativecommons.org/licenses/by-nc-sa/2.0/">
+              This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 2.0 Generic
+              License
+            </a>
+          </footer>
+        </section>
+
+        <section>
+          <h2>Enrique Amodeo</h2>
+          <h4>(who is this guy?)</h4>
+
+          <img src="img/EnriqueAmodeo.jpg" class="left"
+               alt="[Enrique Amodeo, circa 2015]">
+          <ul>
+            <li>Programming since 1984</li>
+            <li>Currently Software Engineer at <span style="color: #f50;">SoundCloud</span></li>
+            <li>Has loved JS since 2005</li>
+            <li>Test infected</li>
+            <li>Enthusiast of the Agile/Lean way</li>
+            <li>Follow me at
+              <a href="https://twitter.com/eamodeorubio">@eamodeorubio</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Disclaimer</h2>
+          <ul>
+            <li>Totally Opinionated</li>
+            <li>Opinions, silly jokes, and bad drawings are mine and only mine</li>
+            <li>No cats, animals and human beings were harmed during this presentation</li>
+          </ul>
+        </section>
+
+        <section class="separata">
+          <hgroup>
+            <h2>Driven by the Fashion</h2>
+          </hgroup>
+          <figure>
+            <img src="./img/fashion.jpg">
+            <figcaption>
+              <span>Original By "extraterila":</span>
+              <a href="https://www.flickr.com/photos/extraterila/4170309216/"
+              target="_blank">https://www.flickr.com/photos/extraterila/4170309216/</a>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## How to contribute to JS
+
+            FAIL! <!-- .element: class="fragment sticker" stile="font-size: 5em;"-->
+            1. Select a problem that needs to be fixed
+            2. Write a good quality solution
+            3. Explain _engineering_ pros/cons of your solution
+            4. Good docs, support, and tutorials
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Build Hype!
+
+            * No matter if the problem was already fixed
+            * Invent fancy names for concepts already existing
+            * All about blogs, tweets, and exciting your followers!
+            * Spin off new libs/tools to fix selfcreated problems
+            * Make your company to use it
+            * Make your company to offer "official" support
+            * Use cat pictures
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Often this only works if
+
+            * You are a celebrity!
+            * You are an unicorn!
+            * Or you work for a famous company!
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Fashion driven ecosystem
+            - 👍 Competion
+            - 👍 Innovation
+            - 👎 Unstable working environment
+            - 👎 Fashion driven curriculum
+            - 👎 Reinventing the wheel
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Become a Fashion Critic
+
+            OPINIONATED! <!-- .element: class="fragment sticker" -->
+            - Trends in building JS apps
+            - And their corresponding frameworks
+          </script>
+        </section>
+
+        <section class="separata">
+          <hgroup>
+            <h2>Functional UI is the <span style="color: black">new black</span></h2>
+          </hgroup>
+          <figure>
+            <img src="./img/trendy.png">
+            <figcaption>
+              <span>Original By "Allie M":</span>
+              <a href="https://www.flickr.com/photos/upon-photos/6126179948/"
+              target="_blank">https://www.flickr.com/photos/upon-photos/6126179948/</a>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section>
+          <h2>MV* Madness !!</h2>
+          <p class="fragment sticker" style="font-size: 5em">???<p>
+          <img src="./img/mv_madness.jpg">
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Old fashioned interactive programming
+            ```javascript
+              // Module foo
+              import bar from 'bar';
+
+              function foo(x) {
+                if(x % 2 == 0)
+                  bar(x % 2)
+              }
+            ```
+
+            ```javascript
+              // Module bar
+              export default function bar(anEvenNumber) {
+                // Do something with 'y'!
+              }
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Trendy reactive way
+            ```javascript
+              // Module foo
+              import EventEmitter from 'events';
+
+              const evenNumberEmitter = new EventEmitter();
+
+              export default evenNumberEmitter.on.bind(evenNumberEmitter, 'oneven');
+
+              function foo(x) {
+                if(x % 2 == 0)
+                  evenNumberEmitter.emit('oneven', x % 2)
+              }
+            ```
+
+            ```javascript
+              // Module bar
+              import foo from 'foo';
+
+              foo((anEvenNumber) => {
+                // Do something with 'y'!
+              })
+
+              // No export!
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## The UI as a function
+            ```javascript
+              UI = render(state);
+
+              state = nextState(state, uiEvent);
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## The UI as a _reactive_ function
+            ### (the "view")
+            ```javascript
+              import {updateDOM, onDOMEvent, eventBus} from 'framework';
+              import template from 'template-for-this-view'
+              import onStateChanged from 'view-model';
+
+              onStateChanged((newViewModel) => {
+                const newDOM = template(newViewModel);
+                updateDOM(newDOM);
+              });
+              onDOMEvent((ev) => eventBus.emit('this-view-action', toAction(ev)));
+
+              function toAction(ev) {
+                // Transform DOM Event to a logic view action
+                // From "button1.click" to "reset order form"
+              }
+
+              export default eventBus.on.bind(eventBus, 'this-view-action');
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## The UI as a _reactive_ function
+            ### (the "view-model")
+            ```javascript
+              import {eventBus} from 'framework';
+              import onAction from 'view';
+              // In 'my-ui-logic' we have the bulk of our logic
+              import {initialViewState, nextState} from 'my-ui-logic';
+
+              let state = initialViewState();
+
+              onAction((action) => {
+                // Promises are "reactive" too ;)
+                nextState(state, action).then((newState) => {
+                  state = newState;
+                  eventBus.emit('this-view-model-change', state);
+                });
+              });
+
+              export default eventBus.on.bind(eventBus, 'this-view-model-change');
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## The UI as a _reactive_ function
+            ### (the "my-ui-logic")
+            ```javascript
+              import {serverFetch} from 'framework';
+
+              export default {
+                nextState: function(state, action) {
+                  return new Promise((resolve, reject) => {
+                    // Async computation involving serverFetch
+                    // Computes the next state
+                    // Potentially calls the server using serverFetch
+                  });
+                },
+                initialState: function() { return {/*initial*/}; }
+              };
+            ```
+          </script>
+        </section>
+
+        <section>
+          <h2>OMG! What have I done!</h2>
+          <h2 class="fragment">Reactive Layered Architecture<small><sup>(TM)</sup></small></h2>
+
+          <img src="./img/reactive_naive.jpg" style="width:100%;margin:0;border:0">
+        </section>
+
+        <section>
+          <h2>Layers of abstraction</h2>
+
+          <img src="./img/reactive_layer1.jpg" style="width:100%;margin:0;border:0">
+        </section>
+
+        <section>
+          <h2>Even more layers of abstraction</h2>
+          <img src="./img/reactive_layer2.jpg" style="width:100%;margin:0;border:0">
+        </section>
+
+        <section>
+          <h2>Complex page</h2>
+
+          <img src="./img/reactive_complex.jpg" style="width:500px;margin:0;border:0">
+        </section>
+
+				<section>
+          <h2>Boundaries are side effects</h2>
+
+          <img src="./img/boundaries.jpg" style="width:80%;margin:0;border:0">
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Critic of "Reactive Layered Architecture"
+            - 😜 It is promoted by me
+            - 👍 Homogeneous/Fractal architecture
+            - 👍 Each layer is easily testable
+            - 👍 Can make layers thin and easy to understand (SRP)
+            - 👍 Can add new layer without fuss
+            - 👍 Server push ready
+            - 👍 Side effects only in the borders (hexagonal architecture)
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## REACT
+
+            ![REACT](./img/react.jpg) <!-- .element: style="width: 1024px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## REACT critic
+            - 👍 Simple!
+            - 👍 Oh yeah! It has virtual DOM!
+            - 👍 View reacts to state changes!
+            - 👍 Composable views as trees
+            - 👍 Can mix with Reactive Layer Architecture
+            - 😐 Only concerned about the view
+            - 👎 Props or State?
+            - 😐 JSX
+            - 😐 Focused in the "view" part (good and bad)
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## FLUX
+
+            ![FLUX](./img/flux.jpg) <!-- .element: style="width: 1024px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## FLUX critic
+            - 😐 REACT oriented
+            - 👎 Composability??
+            - 👎 Fancy names:
+                * Dispatcher instead of Singleton Event Bus
+                * Store instead of collection model
+            - 😐 A bit too complex for the value it gives??
+                 (At least REACT is simple!)
+            - 👎 Too much hype for what really is
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## REDUX
+
+            ![REDUX](./img/redux.jpg) <!-- .element: style="width: 600px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## REDUX critic
+            - 😐 Only concerned about the model, not the view
+            - 👍 View neutral
+            - 👍 Reducer
+            - 👍 Better composability:
+                * Reducers
+                * Middleware
+            - 😐 Not fractal/homogeneous
+            - 👎 Fancy names (again):
+                * Store is not a FLUX Store (sic) -> kind of event emitter
+          </script>
+        </section>
+
+        <section class="separata">
+          <hgroup>
+            <h2>DOM Rendering</h2>
+          </hgroup>
+          <figure>
+            <img src="./img/dom.jpg">
+            <figcaption>
+              <span>Original By "Suzette - www.suzette.nu":</span>
+              <a href="https://www.flickr.com/photos/suzettesuzette/5212689458/"
+              target="_blank">https://www.flickr.com/photos/suzettesuzette/5212689458/</a>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Replace old DOM with new
+            - 👍 The most simple thing
+            - 👎 Reflows!!!
+            - 👎 Event storms -> Storm of reflows!
+            - 👎 Create and destroy DOM is expensive
+            - 👎 When is a DOM object GCed?
+            - 👎 Event Handlers get a bit more tricky
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Virtual DOM
+
+            ```javascript
+            let renderScheduled,
+                vDOM = emptyVDOM(),
+                rootDOM = document.findElementById('container');
+
+            rootView.on('changed', () => {
+              if(!renderScheduled)
+                renderScheduled = requestAnimationFrame(render);
+            });
+
+            function render() {
+              const newVDOM = rootView.render();
+              const diff = newVDOM.diff(vDOM);
+              rootDOM = diff.patch(rootDOM);
+              vDOM = newVDOM;
+              renderScheduled = null;
+            }
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## A Critic to Virtual DOM
+
+            - 👍 Render only what changes
+            - 👍 Batches
+            - 👍 Several implementations
+                - REACT
+                - [virtual-dom](https://github.com/Matt-Esch/virtual-dom) https://github.com/Matt-Esch/virtual-dom and others
+            - 👎 High memory footprint
+                - Mobile devices
+                - GC pauses -> unresponsiveness
+            - 👎 What happened to my templates?
+            - 👎 First time server side render (bootstrap from HTML)
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Incremental DOM
+
+            ```javascript
+            let renderScheduled,
+                rootDOM = document.findElementById('container');
+
+            rootView.on('changed', () => {
+              if(!renderScheduled)
+                renderScheduled = requestAnimationFrame(render);
+            });
+
+            function render() {
+              const diffAndPatch = rootView.render();
+              rootDOM = diffAndPatch(rootDOM);
+              renderScheduled = null;
+            }
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Critic to Incremental DOM
+
+            - 👍 Render only what changes
+            - 👍 Batches
+            - 👍 Low memory footprint
+            - 👍 Template engines can be built on top of it
+            - 😐 Lower level lib
+            - 👎 Slower than Virtual DOM
+            - 👎 First time server side render (bootstrap from HTML)
+            - 😐 Mostly a Google effort
+          </script>
+        </section>
+
+				<section data-markdown>
+          <script type="text/template">
+            ## vDOM vs. iDOM
+
+            - Virtual DOM has more support and implementations
+            - Incremental DOM
+                - Memory constrained environments
+                - Templates !
+            - Still need from HTML -> VirtualDOM
+          </script>
+        </section>
+
+        <section class="separata">
+          <hgroup>
+            <h2>BFFs are <span style="color: red">HOT</span></h2>
+          </hgroup>
+          <figure>
+            <img src="./img/hot.jpg">
+            <figcaption>
+              <span>Original By "Kevin Dooley":</span>
+              <a href="https://www.flickr.com/photos/pagedooley/3095551590/"
+              target="_blank">https://www.flickr.com/photos/pagedooley/3095551590/</a>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## The monolith
+
+            ![The monolith](./img/monolith.jpg) <!-- .element: style="width: 1024px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Microservices explosion
+
+            ![Microservices](./img/microservices.jpg) <!-- .element: style="width: 400px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## BFFs
+            ### (Back-end For Front-Ends)
+
+            ![BFFs](./img/bff.jpg) <!-- .element: style="width: 500px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+				<section data-markdown>
+          <script type="text/template">
+            ## Façade pattern
+
+            ![BFFs](./img/bff.jpg) <!-- .element: style="width: 500px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## What if the API were a DB?
+
+            ![DB](./img/db.jpg) <!-- .element: style="width: 600px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## GraphQL
+
+            - Define generic Schema for your UIs
+            - Define queries and mutations
+            - Only need to implement the schema in the server
+                * DIY
+                * Microservices or DBs
+                * Supported in Ruby, Scala and NodeJS
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## GraphQL (Schema)
+
+            ```
+            type User {
+              id: ID!
+              name: String
+              allTasks: [Task]
+              tasksByState(done: Boolean!): [Task]
+            }
+
+            type Task {
+              id: ID!
+              description: String!
+              done: Boolean!
+              owner: User
+            }
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## GraphQL (Query)
+            ```
+            type Query {
+              userById(id: ID!): User
+              task(id: ID!): Task
+            }
+            ```
+
+            ```
+            query {
+              todoList: userById(id: 1023) {
+                tasks: tasksByState(done: false) {
+                  id
+                  description
+                }
+              }
+            }
+            ```
+
+            ```json
+            {
+              "todoList": {
+                "tasks": [
+                  {"id": "32432", "description": "TASK 1"},
+                  {"id": "6342", "description": "TASK 4"}
+                ]
+              }
+            }
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## GraphQL (Mutation)
+            ```
+            type Mutation {
+              updateTask(taskId: ID!, done:Boolean!): Task
+            }
+            ```
+
+            ```
+            mutation {
+              changedTask: updateTask(taskId: 10, done: true) {
+                owner {
+                  id
+                }
+              }
+            }
+            ```
+
+            ```json
+            {
+              "changedTask": {
+                "owner": { "id": "10" }
+              }
+            }
+            ```
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## GraphQL tips
+
+            - Do not couple to the UI!
+                * Widget state (enabled/disabled for example)
+                * UI structure
+            - How many schemas do I have?
+                * One schema for all -> The monolith schema
+                * Micro-schemas -> Microservices again
+                * One schema per UI domain
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Critic of GraphQL
+
+            - 👍 One schema multiple BFFs
+            - 👍 Transport neutral (you can use REST or other thing)
+            - 👍 Language neutral
+            - 👍 Data source neutral
+            - 😐 Still need to code the resolvers!!!
+            - 😐 Some boilerplate in server side
+            - 😐 Still a bit green
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## RELAY != GraphQL
+
+            ![RELAY](./img/relay.jpg) <!-- .element: style="width: 1024px;margin:0;padding:0" -->
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Critic of RELAY
+
+            - 👍 View reacts to the server/model
+            - 👍 Prefetch data, data is guaranteed before render
+            - 👍 De-deduplicating requests
+            - 👍 "optimistic" update on the client
+                * Retry if there was a failure
+                * Rollback if we give up
+            - 👍 Uses GraphQL
+            - 👎 Tied to REACT
+            - 👎 Anti REST approach (smells like SOAP)
+            - 😐 App level cache
+            - 😐 Batching request
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## RELAY vs. HTTP2
+
+            - Several request and responses over the same connection!
+            - Server push!
+                * App cache invalidation
+                * Reacting to the server the right way!
+            - Header compression!
+            - HTTP/2 is still RESTfull
+            - Is RELAY really necessary with HTTP/2???
+                * App level cache?
+                * Batchin request?
+          </script>
+        </section>
+
+        <section class="separata">
+          <hgroup style="background-color:transparent;">
+            <h1>The End</h1>
+						<h3>Don't be a Fashion Victim</h3>
+						<h3>But a Fashion Critic</h3>
+						<h3>Or a Trend Setter</h3>
+          </hgroup>
+          <figure>
+            <img src="./img/questions.jpg">
+            <figcaption>
+              <span>Original by Ethan Lofton: </span>
+              <a href="http://www.flickr.com/photos/eleaf/2536358399/"
+              target="_blank">http://bit.ly/1arHGj</a>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+    </div>
+
+		<script src="./reveal.js-3.3.0/lib/js/head.min.js"></script>
+		<script src="./reveal.js-3.3.0/js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+        // width: 960,
+        // height: 700,
+        // margin: 0.05,
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: './reveal.js-3.3.0/plugin/markdown/marked.js' },
+					{ src: './reveal.js-3.3.0/plugin/markdown/markdown.js' },
+					// { src: './reveal.js-3.3.0/plugin/notes/notes.js', async: true },
+					{ src: './reveal.js-3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
